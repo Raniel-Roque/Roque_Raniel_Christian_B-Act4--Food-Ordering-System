@@ -1,0 +1,14 @@
+package foodOrderingSystem;
+
+public class FOS_Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//FOS_Intro Fos = new FOS_Intro();
+		//Fos.FOS_Intro_Design();
+		
+		FOS_Frame Fes = new FOS_Frame();
+		Fes.FOS_Frame_Design();
+	}
+
+}

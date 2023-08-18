@@ -1,0 +1,210 @@
+package foodOrderingSystem;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+
+public class FOS_Frame extends JFrame implements ActionListener{
+	//IMAGES
+	ImageIcon Logo = new ImageIcon(new ImageIcon("Logo-FOS.png").getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+	ImageIcon Back = new ImageIcon(new ImageIcon("Back.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+	ImageIcon BFImg = new ImageIcon(new ImageIcon("BF.png").getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+	ImageIcon MainImg = new ImageIcon(new ImageIcon("Main.png").getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+	ImageIcon DessertImg = new ImageIcon(new ImageIcon("Dessert.png").getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+	ImageIcon BuyImg = new ImageIcon(new ImageIcon("Buy.png").getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+	
+	//Breakfast
+	ImageIcon LSilog = new ImageIcon(new ImageIcon("Longsilog.png").getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+	
+	ImageIcon[] BFDishImg = {LSilog};
+	//TOOLKITS
+	Toolkit ToolK = getToolkit();
+	Dimension Size = ToolK.getScreenSize();
+	
+	//DINE IN OR TAKE OUT FROM OTHER CLASS
+	String DT;
+	
+	//INITIALIZE 
+	JPanel BFPanel = new JPanel();
+	
+	JLabel Title = new JLabel();
+	JLabel LongLabel, TapLabel, TocLabel, SpamLabel, DaingLabel, ChickLabel, BangLabel, CornLabel, HotLabel, ShangLabel;
+	JButton BackButt, BFButt, MainButt, DessertButt, BuyButt;
+	
+	//ARRAYS FOR LOOPS
+	JButton[] SideButt = {BackButt = new JButton(), BFButt = new JButton(), MainButt = new JButton(), DessertButt = new JButton(), BuyButt = new JButton()};
+	JLabel[] BFDishImages = {LongLabel, TapLabel, TocLabel, SpamLabel, DaingLabel, ChickLabel, BangLabel, CornLabel, HotLabel, ShangLabel};
+	
+	JCheckBox[] BFDish = new JCheckBox[10];
+	JCheckBox[] MDish = new JCheckBox[10];
+	JCheckBox[] DDish = new JCheckBox[10];
+	
+	//ARRAYS FOR LOOPS BUT FOR SET TEXTS
+	String[] BF = {"<html>Longsilog <br>P80.00</html>", "<html>Tapsilog <br>P90.00</html>", "<html>Tocilog <br>P70.00</html>", 
+				   "<html>Spamsilog <br>P80.00</html>", "<html>Daingsilog <br>P90.00</html>", "<html>Chicksilog <br>P90.00</html>", 
+				   "<html>Bangsilog <br>P90.00</html>", "<html>Cornsilog <br>P80.00</html>", "<html>Hotsilog <br>P70.00</html>", 
+				   "<html>Shanghaisilog <br>P70.00</html>"};
+	
+	String[] M = {"Sinigang Bangus", "Kare-Kare", "Sisig", "Pork Adobo", 
+				  "Chicken Inasal", "Inihaw na Baboy", "Crispy Pata", 
+				  "Nilagang Manok", "Tinola", "Bulalo"};
+	
+	String[] D = {"Puto Bumbong", "Mais Con Yelo", "Leche Flan", 
+				  "Halo-Halo", "Puto", "Fruit Salad", 
+				  "Mango Graham Cake", "Buko Salad", 
+				  "Ice Cream", "Buko Pandan"};
+	
+	void FOS_Frame_Design(){
+		JLabel BG = new JLabel(new ImageIcon(new ImageIcon("Template_2.png").getImage().getScaledInstance(500, 600, Image.SCALE_SMOOTH)));
+	
+		setSize(BG.getPreferredSize());
+		setLocation(Size.width/2 - getWidth()/2, Size.height/2 - getHeight()/2);
+		getContentPane().setBackground(Color.decode("#F5F5DC"));
+		getContentPane().add(BG);
+		setResizable(false);
+		setTitle("Food Ordering System");
+		setIconImage(Logo.getImage());
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		BG.setBounds(0, 0, getWidth(), getHeight());
+		
+		//COMPONENTS
+		Title.setText("Breakfast");
+		Title.setBounds(175, 85, 250, 40);
+		Title.setFont(new Font("Georgia", Font.BOLD, 40));
+		Title.setForeground(Color.black);
+		Title.setBorder(null);
+		Title.setFocusable(false);
+		Title.setOpaque(false);
+		
+		//TOOLTIP EDITS
+		UIManager.put("ToolTip.background", Color.white);
+		UIManager.put("ToolTip.foreground", Color.black);
+		UIManager.put("ToolTip.border", BorderFactory.createLineBorder(Color.black, 1));
+		UIManager.put("ToolTip.font", new Font("Arial", Font.BOLD, 20));
+	    int initialDelay = ToolTipManager.sharedInstance().getInitialDelay();
+	    ToolTipManager.sharedInstance().setInitialDelay(10);
+	    
+	    //SIDE BUTTONS
+	    int y = 75;
+	    for (int i = 0; i < SideButt.length; i++) {
+	        int index = i; // Final Variable for mouselistener
+	        SideButt[index].setBounds(0, y, 69, 70);
+	        y += 70;
+	        SideButt[index].setBorder(null);
+	        SideButt[index].setOpaque(true);
+	        SideButt[index].setFocusable(false);
+	        SideButt[index].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+	        SideButt[index].addActionListener(this);
+	        
+	        if (index == 0) {
+		        	SideButt[index].addMouseListener(new java.awt.event.MouseAdapter() {
+		            public void mouseEntered(java.awt.event.MouseEvent evt) {
+		                SideButt[index].setBackground(Color.decode("#695141"));
+		            }
+		            public void mouseExited(java.awt.event.MouseEvent evt) {
+		                SideButt[index].setBackground(Color.decode("#4b3a2f"));
+		            }
+	        	});
+	        } else {
+	        	SideButt[index].addMouseListener(new java.awt.event.MouseAdapter() {
+	    			public void mouseEntered(java.awt.event.MouseEvent evt) {
+	    		    	if (SideButt[index].getBackground().equals(Color.decode("#4b3a2f"))) {
+	    		    		SideButt[index].setBackground(Color.decode("#695141"));
+	    		    	}
+	    		    }
+	    		    public void mouseExited(java.awt.event.MouseEvent evt) {
+	    		    	if (SideButt[index].getBackground().equals(Color.decode("#695141"))) {
+	    		    		SideButt[index].setBackground(Color.decode("#4b3a2f"));
+	    		    	}
+	    		    }
+	    		});
+	        }
+	        add(SideButt[index]);
+	    }
+	    
+		BackButt.setIcon(Back);
+		BackButt.setBackground(Color.decode("#4b3a2f"));
+		BackButt.setToolTipText("Back");
+		
+		BFButt.setIcon(BFImg);
+		BFButt.setBackground(Color.decode("#695142"));
+		BFButt.setToolTipText("Breakfast");
+		
+		MainButt.setIcon(MainImg);	
+		MainButt.setBackground(Color.decode("#4b3a2f"));
+		MainButt.setToolTipText("Main Courses");
+		
+		DessertButt.setIcon(DessertImg);
+		DessertButt.setBackground(Color.decode("#4b3a2f"));
+		DessertButt.setToolTipText("Desserts");
+
+		BuyButt.setIcon(BuyImg);
+		BuyButt.setBackground(Color.decode("#4b3a2f"));
+		BuyButt.setToolTipText("Checkout");
+		
+		//PANEL
+		
+		BFPanel.setBounds(85, 150, 380, 400);
+		BFPanel.setLayout(new GridLayout(5,5));
+		
+		for (int i = 0; i < BFDish.length; i++) {
+			BFDish[i] = new JCheckBox(BF[i]);
+			BFDish[i].setBackground(Color.decode("#e8ccb4"));
+			BFDish[i].setFocusable(false);
+			BFDish[i].setFont(new Font("Arial", Font.BOLD, 14));
+			BFDish[i].setVerticalAlignment(20);
+			BFPanel.add(BFDish[i]);
+		}
+		
+		//ADD
+		add(Title);
+		add(BFPanel);
+		
+		getContentPane().setComponentZOrder(Title, 0);
+		getContentPane().setComponentZOrder(BFPanel, 0);
+		for (int i = 0; i < SideButt.length; i++) {
+		    getContentPane().setComponentZOrder(SideButt[i], 0);
+		}
+		
+		setLayout(null);
+		setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource() == BackButt) {
+		    int Back = JOptionPane.showConfirmDialog(this, "Go back and discard order?", "Back", JOptionPane.YES_NO_OPTION);
+		    if (Back == JOptionPane.YES_OPTION) {
+		        FOS_Dine_Take Fos = new FOS_Dine_Take();
+		        Fos.FOS_Dine_Take_Design();
+		        dispose();
+		    }
+		} else {
+		    BFButt.setBackground(Color.decode("#4b3a2f"));
+		    MainButt.setBackground(Color.decode("#4b3a2f"));
+		    DessertButt.setBackground(Color.decode("#4b3a2f"));
+		    BuyButt.setBackground(Color.decode("#4b3a2f"));
+
+		    if (e.getSource() == BFButt) {
+		        BFButt.setBackground(Color.decode("#695142"));
+		        Title.setText("Breakfast");
+		        Title.setBounds(175, 85, 250, 40);
+		    } else if (e.getSource() == MainButt) {
+		        MainButt.setBackground(Color.decode("#695142"));
+		        Title.setText("Main Course");
+		        Title.setBounds(140, 85, 280, 40);
+		    } else if (e.getSource() == DessertButt) {
+		        DessertButt.setBackground(Color.decode("#695142"));
+		        Title.setText("Desserts");
+		        Title.setBounds(175, 85, 250, 40);
+		    } else if (e.getSource() == BuyButt) {
+		        BuyButt.setBackground(Color.decode("#695142"));
+		        Title.setText("");
+		        Title.setBounds(175, 85, 250, 40);
+		    }
+		}
+
+	}
+}

@@ -1,0 +1,118 @@
+package foodOrderingSystem;
+
+import java.awt.*;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+
+import javax.swing.*;
+
+public class FOS_Dine_Take extends JFrame implements ActionListener{
+	
+	ImageIcon Logo = new ImageIcon(new ImageIcon("Logo-FOS.png").getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+	
+	Toolkit ToolK = getToolkit();
+	Dimension Size = ToolK.getScreenSize();
+	
+	JButton Next = new JButton();
+	JRadioButton Dine = new JRadioButton();
+	JRadioButton Take = new JRadioButton();
+	ButtonGroup ButtGroup = new ButtonGroup();
+	
+	void FOS_Dine_Take_Design(){
+		JLabel BG = new JLabel(new ImageIcon(new ImageIcon("Dine_Take.png").getImage().getScaledInstance(500, 600, Image.SCALE_SMOOTH)));
+		
+		setSize(BG.getPreferredSize());
+		setLocation(Size.width/2 - getWidth()/2, Size.height/2 - getHeight()/2);
+		getContentPane().setBackground(Color.decode("#F5F5DC"));
+		getContentPane().add(BG);
+		setResizable(false);
+		setTitle("Food Ordering System");
+		setIconImage(Logo.getImage());
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		//COMPONENTS
+		
+		//Design
+		BG.setBounds(0, 0, getWidth(), getHeight());
+		
+		Next.setBackground(Color.decode("#4a392f"));
+		Next.setBounds(170, 380, 150, 50);
+		Next.setText("Next");
+		Next.setFont(new Font("SansSerif", Font.BOLD, 21));
+		Next.setForeground(Color.WHITE);
+		Next.setFocusable(false);
+		Next.setBorder(null);
+		Next.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	Next.setBackground(Color.decode("#7a5f4e"));
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	Next.setBackground(Color.decode("#4a392f"));
+		    }
+		});
+		Next.addActionListener(this);
+		
+		Dine.setBounds(80, 320, 150, 30);
+		Dine.setText("Dine In");
+		Dine.setFont(new Font("Georgia", Font.BOLD, 25));
+		Dine.setBackground(Color.decode("#F5F5DC"));
+		Dine.setBorder(null);
+		Dine.setFocusable(false);
+		Dine.setOpaque(false);
+		
+		Take.setBounds(290, 320, 150, 30);
+		Take.setText("Take Out");
+		Take.setFont(new Font("Georgia", Font.BOLD, 25));
+		Take.setBackground(Color.decode("#F5F5DC"));
+		Take.setBorder(null);
+		Take.setFocusable(false);
+		Take.setOpaque(false);
+
+
+		
+		ButtGroup.add(Dine);
+		ButtGroup.add(Take);
+		
+		//ADD
+		add(BG);
+		add(Next);
+		add(Dine);
+		add(Take);
+
+		getContentPane().setComponentZOrder(Next, 0);
+		getContentPane().setComponentZOrder(Dine, 0);
+		getContentPane().setComponentZOrder(Take, 0);
+		
+		setLayout(null);
+		setVisible(true);
+		
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource().equals(Next)) {
+			
+			if (Dine.isSelected() == false && Take.isSelected() == false){
+				JOptionPane.showMessageDialog(null, "Please choose between dine in or take out", "Choose!", JOptionPane.WARNING_MESSAGE);
+			} else if(Dine.isSelected() == true) {
+				FOS_Frame Frame = new FOS_Frame();
+				Frame.DT = "Dine In";
+				Frame.FOS_Frame_Design();
+				dispose();
+			} else if(Take.isSelected() == true) {
+				FOS_Frame Frame = new FOS_Frame();
+				Frame.DT = "Take Out";
+				Frame.FOS_Frame_Design();
+				dispose();
+			}
+		}
+	}
+
+}

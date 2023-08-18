@@ -1,0 +1,49 @@
+package foodOrderingSystem;
+
+import java.awt.*;
+import javax.swing.*;
+
+class ExampleCSS {
+
+    public static void showStyle(String style) {
+        JPanel gui = new JPanel(new BorderLayout());
+
+        String html1 = "<html><body style = '"+style+"'>";
+        String html2 =  "</body></html>";
+        JTabbedPane tp = new JTabbedPane();
+        tp.addTab(html1 + "Groups" + html2, new JLabel(style));
+        tp.addTab(html1 + "Settings" + html2, new JLabel(style));
+        tp.addTab(html1 + "About" + html2, new JLabel(style));
+
+        gui.add(tp);
+
+        JFrame f = new JFrame();
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        f.setContentPane(gui);
+        f.setMinimumSize(new Dimension(400,100));
+        f.pack();
+        f.setLocationByPlatform(true);
+        f.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        Runnable r = new Runnable() {
+
+            @Override
+            public void run() {
+                String[] css = {
+                    "margin:0;background:#ffffff;",
+                    "padding:10px;",
+                    "width:110px;height:10px;border-radius:3px;"
+                        + "text-align:center;border:none;"
+                };
+                showStyle(css[0]);
+                showStyle(css[0]+css[1]);
+                showStyle(css[0]+css[1]+css[2]);
+            }
+        };
+        // Swing GUIs should be created and updated on the EDT
+        // http://docs.oracle.com/javase/tutorial/uiswing/concurrency/initial.html
+        SwingUtilities.invokeLater(r);
+    }
+}
